@@ -519,24 +519,6 @@
       text-decoration: underline;
     }
 
-    /* ===== 整卡链接 ===== */
-    .card-link {
-      display: flex;
-      flex-direction: column;
-      cursor: pointer;
-      text-decoration: none;
-      color: inherit;
-    }
-
-    .card-link:hover {
-      transform: translateY(-2px);
-      border-color: var(--accent);
-    }
-
-    .card-link:hover h2 i {
-      color: var(--accent);
-    }
-
     /* ===== 响应式 ===== */
     @media (max-width: 700px) {
       body {
@@ -623,9 +605,6 @@
     <nav>
       <button class="active" onclick="switchPage('home', this)" title="起始页">
         <i class="ri-dashboard-3-line"></i><span class="label">起始页</span>
-      </button>
-      <button onclick="switchPage('projects', this)" title="项目">
-        <i class="ri-git-repository-line"></i><span class="label">项目</span>
       </button>
       <a href="https://blog.hotsouprealm.top/friends/" target="_blank" rel="noopener" title="友链">
         <i class="ri-links-line"></i><span class="label">友链</span>
@@ -716,48 +695,6 @@
             <a class="link-btn" href="mailto:hahahotsoup@foxmail.com"><i class="ri-mail-fill"></i> 邮件</a>
           </div>
         </section>
-
-        <div class="footer">Made with <i class="ri-heart-fill" style="color:var(--red);font-size:13px;"></i> by
-          hahahotsoup</div>
-
-      </div>
-    </div>
-
-    <!-- ==================== 项目页 ==================== -->
-    <div class="page" id="page-projects">
-      <div class="card-col">
-
-        <a class="card card-accent card-link" target="_blank" rel="noopener" href="https://blog.hotsouprealm.top">
-          <h2><i class="ri-home-smile-fill"></i> 个人博客</h2>
-          <p>基于静态站点生成器的技术博客，记录学习笔记、踩坑经历和日常吐槽。</p>
-          <p style="margin-top:8px; color:var(--accent);"><i class="ri-external-link-line"></i> blog.hotsouprealm.top
-          </p>
-        </a>
-
-        <a class="card card-purple card-link" target="_blank" rel="noopener"
-          href="https://github.com/hahahotsoup/sipintui">
-          <h2><i class="ri-terminal-box-line"></i> sip</h2>
-          <p>大道至简</p>
-          <p>本地优先的个人信息库，专治信息过载。AI友好</p>
-          <p style="margin-top:8px; color:var(--accent);"><i class="ri-external-link-line"></i>
-            github.com/hahahotsoup/sipintui</p>
-        </a>
-
-        <a class="card card-orange card-link" target="_blank" rel="noopener"
-          href="https://github.com/hahahotsoup/sip-webapiextra">
-          <h2><i class="ri-global-line"></i> sip-web</h2>
-          <p>【实验性】sip 的零依赖本地 Web 界面，浏览器里订阅、阅读、搜索，不用碰命令行。</p>
-          <p style="margin-top:8px; color:var(--accent);"><i class="ri-external-link-line"></i>
-            github.com/hahahotsoup/sip-webapiextra</p>
-        </a>
-
-        <a class="card card-yellow card-link" target="_blank" rel="noopener"
-          href="https://sip.hotsouprealm.top">
-          <h2><i class="ri-book-open-line"></i> sip wiki</h2>
-          <p>sip 的文档站，功能总览、使用指南、竞品对比、梗百科。</p>
-          <p style="margin-top:8px; color:var(--accent);"><i class="ri-external-link-line"></i>
-            sip.hotsouprealm.top</p>
-        </a>
 
         <div class="footer">Made with <i class="ri-heart-fill" style="color:var(--red);font-size:13px;"></i> by
           hahahotsoup</div>

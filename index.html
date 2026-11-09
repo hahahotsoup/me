@@ -1,733 +1,455 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-
 <head>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css">
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-  <title>hahahotsoup的起始页</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>hahahotsoup</title>
+  <meta name="description" content="hahahotsoup的个人主页。普通计算机科学爱好者，正在忙着高考、写博客和搭 Minecraft 服务器。">
+  <meta name="theme-color" content="#c7201a">
+  <meta property="og:title" content="hahahotsoup">
+  <meta property="og:description" content="cool beans bro👍 普通计算机科学爱好者，高三学生，正在做博客、Minecraft 服务器和笔记。">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23c7201a'/%3E%3Ccircle cx='32' cy='32' r='11' fill='none' stroke='%23fff8f4' stroke-width='3'/%3E%3Ccircle cx='32' cy='32' r='3' fill='%23fff8f4'/%3E%3C/svg%3E">
+  <link rel="preload" as="image" href="assets/banner.webp" imagesrcset="assets/banner-1200.webp 1200w, assets/banner.webp 2000w" imagesizes="100vw" fetchpriority="high">
   <style>
     :root {
-      --bg: #242933;
-      --bg-card: #2e3440;
-      --bg-card-hover: #353b4a;
-      --bg-sidebar: #1e222b;
-      --text: #d8dee9;
-      --text-muted: #7b88a1;
-      --accent: #88c0d0;
-      --accent2: #81a1c1;
-      --green: #a3be8c;
-      --red: #bf616a;
-      --yellow: #ebcb8b;
-      --purple: #b48ead;
-      --orange: #d08770;
-      --border: #3b4252;
-      --radius: 10px;
-      --shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
-      --sidebar-w: 180px;
-      --sidebar-collapsed: 52px;
+      --red: #c7201a;
+      --red-ink: #a3150f;
+      --ink: #24292e;
+      --ink-soft: #4f423c;
+      --muted: #6f625b;
+      --line: rgba(199, 32, 26, .2);
+      --paper: #ffffff;
+      --footer: #fbf1ef;
+      --sans: "Helvetica Neue", "PingFang SC", "Source Han Sans", "Microsoft YaHei UI", "Microsoft YaHei", Arial, sans-serif;
+      --kai: "LXGW WenKai", "霞鹜文楷", "KaiTi", "STKaiti", "Kaiti SC", serif;
+      --mono: "Cascadia Mono", "Cascadia Code", Consolas, "Courier New", monospace;
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    *, *::before, *::after { box-sizing: border-box; }
 
-    html,
-    body {
-      height: 100%;
+    html {
+      scroll-behavior: smooth;
+      background: var(--paper);
     }
 
     body {
-      font-family: "Helvetica Neue", "PingFang SC", "Source Han Sans", "Microsoft YaHei UI", "Microsoft YaHei", Arial, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.7;
-      display: flex;
-    }
-
-    body::before {
-      content: '';
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 3px;
-      background: linear-gradient(90deg, var(--accent), var(--purple), var(--orange), var(--green));
-      z-index: 100;
-    }
-
-    /* ===== 侧边栏 ===== */
-    .sidebar {
-      width: var(--sidebar-w);
-      min-width: var(--sidebar-w);
-      height: 100vh;
-      background: var(--bg-sidebar);
-      border-right: 1px solid var(--border);
-      display: flex;
-      flex-direction: column;
-      padding: 20px 0;
-      transition: width 0.3s, min-width 0.3s;
-      overflow: hidden;
-      z-index: 50;
-    }
-
-    .sidebar.collapsed {
-      width: 0;
-      min-width: 0;
-      border-right: none;
-      padding: 20px 0;
-    }
-
-    .sidebar-toggle {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 32px;
-      height: 32px;
-      margin: 0 auto 24px;
-      background: none;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      color: var(--text-muted);
-      cursor: pointer;
-      font-size: 16px;
-      transition: color 0.2s, border-color 0.2s;
-      flex-shrink: 0;
-    }
-
-    .sidebar-toggle:hover {
-      color: var(--accent);
-      border-color: var(--accent);
-    }
-
-    .sidebar nav {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      padding: 0 12px;
-      transition: opacity 0.2s, visibility 0.2s;
-    }
-
-    .sidebar.collapsed nav {
-      opacity: 0;
-      visibility: hidden;
-    }
-
-    .sidebar nav button,
-    .sidebar nav a {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 10px 12px;
-      border-radius: 8px;
-      color: var(--text-muted);
-      text-decoration: none;
-      font-size: 16px;
-      white-space: nowrap;
-      transition: background 0.2s, color 0.2s;
-      cursor: pointer;
-      border: none;
-      background: none;
-      width: 100%;
-      font-family: inherit;
-    }
-
-    .sidebar nav button:hover,
-    .sidebar nav a:hover {
-      background: var(--bg-card);
-      color: var(--text);
-    }
-
-    .sidebar nav button.active {
-      background: var(--bg-card);
-      color: var(--accent);
-    }
-
-    .sidebar nav button i,
-    .sidebar nav a i {
-      font-size: 20px;
-      flex-shrink: 0;
-    }
-
-    .sidebar.collapsed .sidebar-toggle {
-      position: fixed;
-      left: 10px;
-      top: 20px;
-      z-index: 60;
       margin: 0;
-      background: var(--bg-sidebar);
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 17px;
+      line-height: 1.8;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
     }
 
-    /* ===== 主区域 ===== */
-    .main {
-      flex: 1;
-      height: 100vh;
-      overflow-y: auto;
-      padding: 32px 40px 48px;
+    ::selection {
+      background: var(--red);
+      color: #fff;
+    }
+
+    img { max-width: 100%; }
+
+    .banner {
+      display: block;
+      width: 100%;
+      height: auto;
+      background: var(--red);
     }
 
     .page {
-      display: none;
-    }
-
-    .page.active {
-      display: block;
-    }
-
-    /* ===== 卡片列 ===== */
-    .card-col {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      max-width: 1000px;
+      max-width: 730px;
       margin: 0 auto;
+      padding: 34px 15px 0;
     }
 
-    /* ===== 卡片通用 ===== */
-    .card {
-      background: var(--bg-card);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      border: 1px solid var(--border);
-      padding: 28px 32px;
-      transition: background 0.3s, box-shadow 0.25s;
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
     }
 
-    .card:hover {
-      background: var(--bg-card-hover);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
-    }
-
-    .card h2 {
-      font-size: 22px;
-      font-weight: 600;
-      margin-bottom: 12px;
+    .article-meta {
       display: flex;
       align-items: center;
-      gap: 9px;
-      color: var(--text);
+      justify-content: space-between;
+      gap: 16px;
+      margin: 0 0 26px;
+      padding-bottom: 11px;
+      border-bottom: 1px solid var(--line);
+      color: var(--red-ink);
+      font-family: var(--mono);
+      font-size: 9.5px;
+      line-height: 1.5;
+      letter-spacing: .15em;
+      text-transform: uppercase;
     }
 
-    .card h2 i {
-      font-size: 22px;
-      color: var(--accent);
-    }
-
-    .card h3 {
-      font-size: 16px;
-      font-weight: 600;
-      color: var(--text);
-      margin: 16px 0 8px;
-    }
-
-    .card h3:first-of-type {
-      margin-top: 0;
-    }
-
-    .card p,
-    .card li {
-      color: var(--text-muted);
-      font-size: 16px;
-      margin-bottom: 6px;
-    }
-
-    .card a {
-      color: var(--accent);
-      text-decoration: none;
-      border-bottom: 1px dashed var(--accent2);
-      transition: color 0.25s, border-color 0.25s;
-    }
-
-    .card a:hover {
-      color: var(--accent2);
-      border-color: var(--accent);
-    }
-
-    .card hr {
-      border: none;
-      border-top: 1px solid var(--border);
-      margin: 18px 0;
-    }
-
-    .card ul {
-      padding-left: 18px;
-    }
-
-    .card ul li::marker {
-      color: var(--accent);
-    }
-
-    .card-accent h2 i {
-      color: var(--accent);
-    }
-
-    .card-green h2 i {
-      color: var(--green);
-    }
-
-    .card-purple h2 i {
-      color: var(--purple);
-    }
-
-    .card-orange h2 i {
-      color: var(--orange);
-    }
-
-    .card-yellow h2 i {
-      color: var(--yellow);
-    }
-
-    .card-red h2 i {
-      color: var(--red);
-    }
-
-    /* ===== Hero 卡片 ===== */
-    .hero-inner {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-
-    .hero-inner .avatar {
-      width: 72px;
-      height: 72px;
-      border-radius: 50%;
-      flex-shrink: 0;
-      border: 3px solid var(--accent);
-      padding: 3px;
-      background: var(--bg);
-      transition: border-color 0.4s, transform 0.4s;
-    }
-
-    .hero-inner .avatar:hover {
-      border-color: var(--purple);
-      transform: rotate(6deg) scale(1.05);
-    }
-
-    .hero-inner .info {
-      flex: 1;
-      min-width: 200px;
-    }
-
-    .hero-inner h1 {
-      font-size: 28px;
-      font-weight: 600;
-      margin-bottom: 2px;
-    }
-
-    .hero-inner .tagline {
-      color: var(--text-muted);
-      font-size: 16px;
-      margin-bottom: 8px;
-    }
-
-    .hero-inner .socials {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .hero-inner .socials a {
-      font-size: 20px;
-      color: var(--text-muted);
-      transition: color 0.25s, transform 0.25s;
+    .article-meta span:first-child {
       display: inline-flex;
-      text-decoration: none;
-      border: none;
-    }
-
-    .hero-inner .socials a:hover {
-      transform: translateY(-2px);
-    }
-
-    .hero-inner .socials a.gh:hover {
-      color: #f0f6fc;
-    }
-
-    .hero-inner .socials a.bl:hover {
-      color: #fb7299;
-    }
-
-    .hero-inner .socials a.tw:hover {
-      color: #1d9bf0;
-    }
-
-    .hero-inner .socials a.mail:hover {
-      color: var(--orange);
-    }
-
-    .hero-inner .clock-area {
-      text-align: right;
-      flex-shrink: 0;
-    }
-
-    .hero-inner .clock {
-      font-size: 38px;
-      font-weight: 700;
-      font-family: "SF Mono", "Fira Code", "Cascadia Code", monospace;
-      color: var(--accent);
-      letter-spacing: 2px;
-    }
-
-    .hero-inner .clock-prefix {
-      font-size: 20px;
-      font-weight: 500;
-      color: var(--text-muted);
-      opacity: 0.75;
-      font-family: inherit;
-      letter-spacing: 0;
-      margin-right: 4px;
-    }
-
-    .hero-inner .date {
-      color: var(--text-muted);
-      font-size: 14px;
-    }
-
-    .hero-inner .greeting {
-      color: var(--text-muted);
-      font-size: 14px;
-      font-style: italic;
-      opacity: 0.7;
-    }
-
-    /* ===== 标签 ===== */
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
+      align-items: center;
       gap: 8px;
     }
 
-    .tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      padding: 4px 12px;
-      border-radius: 16px;
-      font-size: 14px;
-      font-weight: 500;
-      background: var(--bg);
-      color: var(--text-muted);
-      border: 1px solid var(--border);
+    .article-meta span:first-child::before {
+      content: "";
+      width: 5px;
+      height: 5px;
+      flex: none;
+      background: var(--red);
     }
 
-    .dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      flex-shrink: 0;
+    .article-meta span:last-child { color: var(--muted); }
+
+    .ciallo {
+      margin: 0 0 10px;
+      color: var(--red);
+      font-family: var(--kai);
+      font-size: 20px;
+      line-height: 1.5;
+      letter-spacing: .02em;
     }
 
-    .dot.green {
-      background: var(--green);
-      box-shadow: 0 0 5px var(--green);
+    p {
+      margin: 0 0 16px;
+      overflow-wrap: break-word;
+      text-wrap: pretty;
     }
 
-    .dot.yellow {
-      background: var(--yellow);
-      box-shadow: 0 0 5px var(--yellow);
+    .intro {
+      font-size: 17.5px;
     }
 
-    /* ===== 正在执行 ===== */
-    .doing-entry {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      padding: 8px 0;
-      border-bottom: 1px solid var(--border);
+    .intro strong {
+      color: var(--red);
+      font-weight: 600;
+      letter-spacing: .01em;
     }
 
-    .doing-entry:last-child {
-      border-bottom: none;
-    }
-
-    .doing-entry .doing-icon {
-      flex-shrink: 0;
-      font-size: 28px;
-      font-weight: 800;
-      color: var(--accent);
-      font-family: "SF Mono", "Fira Code", "Cascadia Code", monospace;
+    .name {
+      color: var(--red);
+      font-family: var(--kai);
+      font-size: 1.2em;
+      font-weight: 400;
       line-height: 1;
-      min-width: 50px;
+      letter-spacing: .02em;
     }
 
-    .doing-entry .doing-body {
-      flex: 1;
+    a {
+      color: var(--red-ink);
+      text-decoration: none;
+      border-bottom: 1px dashed rgba(199, 32, 26, .55);
     }
 
-    .doing-entry .doing-title {
-      color: var(--text);
+    a:hover {
+      color: var(--red);
+      border-bottom-style: solid;
+    }
+
+    strong { font-weight: 600; }
+
+    h2 {
+      clear: both;
+      margin: 36px 0 14px;
+      padding-left: 11px;
+      border-left: 3px solid var(--red);
+      color: var(--ink);
+      font-size: 20px;
+      font-weight: 600;
+      line-height: 1.5;
+      letter-spacing: .02em;
+    }
+
+    h3 {
+      margin: 22px 0 5px;
+      color: var(--ink);
+      font-size: 16.5px;
+      font-weight: 600;
+      line-height: 1.65;
+      letter-spacing: .01em;
+    }
+
+    hr {
+      clear: both;
+      margin: 32px 0;
+      border: 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .bio {
+      margin: 0 0 6px;
+    }
+
+    .bio p {
+      margin: 0 0 4px;
+      color: var(--ink-soft);
       font-size: 16px;
-      font-weight: 500;
+      line-height: 1.8;
     }
 
-    .doing-entry .doing-desc {
-      color: var(--text-muted);
-      font-size: 14px;
+    .doing {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      counter-reset: doing;
+    }
+
+    .doing li {
+      position: relative;
+      padding: 11px 0 11px 42px;
+      border-bottom: 1px solid rgba(199, 32, 26, .12);
+      counter-increment: doing;
+    }
+
+    .doing li:first-child {
+      border-top: 1px solid rgba(199, 32, 26, .12);
+    }
+
+    .doing li::before {
+      content: "#" counter(doing);
+      position: absolute;
+      top: 13px;
+      left: 0;
+      color: var(--red);
+      font-family: var(--mono);
+      font-size: 10px;
+      line-height: 1.5;
+      letter-spacing: .06em;
+    }
+
+    .doing strong {
+      display: block;
+      color: var(--ink);
+      font-size: 15.5px;
+      font-weight: 600;
+      line-height: 1.65;
+    }
+
+    .doing span {
+      display: block;
       margin-top: 2px;
+      color: var(--ink-soft);
+      font-size: 14.5px;
+      line-height: 1.8;
     }
 
-    /* ===== 链接行 ===== */
-    .link-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
+    .links {
+      margin: 0 0 8px;
+      line-height: 2.1;
     }
 
-    .link-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      padding: 8px 16px;
-      border-radius: 8px;
-      background: var(--bg);
-      color: var(--text);
-      text-decoration: none;
-      font-size: 16px;
-      border: 1px solid var(--border);
-      transition: background 0.2s, border-color 0.2s, color 0.2s;
+    .sep {
+      margin: 0 6px;
+      color: rgba(27, 20, 18, .28);
     }
 
-    .link-btn:hover {
-      border-color: var(--accent);
-      color: var(--accent);
+    .project {
+      margin: 0 0 18px;
     }
 
-    .link-btn i {
-      font-size: 16px;
+    .project h3::before {
+      content: "→";
+      margin-right: 8px;
+      color: var(--red);
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 400;
     }
 
-    /* ===== 页脚 ===== */
-    .footer {
+    .project p {
+      margin: 0 0 5px;
+      color: var(--ink-soft);
+      font-size: 15.5px;
+      line-height: 1.8;
+    }
+
+    .project .project-link {
+      margin-top: 6px;
+      font-family: var(--mono);
+      font-size: 12px;
+      line-height: 1.7;
+      letter-spacing: .01em;
+    }
+
+    .meme { margin: 0; }
+
+    .meme img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border: 1px solid rgba(199, 32, 26, .2);
+      border-radius: 4px;
+      background: #fff8f4;
+    }
+
+    .meme-float {
+      float: right;
+      width: 176px;
+      margin: 7px 0 16px 26px;
+    }
+
+    .site-footer {
+      margin-top: 72px;
+      padding: 32px 20px 34px;
+      border-top: 1px solid var(--line);
+      border-bottom: 4px solid var(--red);
+      background: var(--footer);
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.9;
       text-align: center;
-      color: var(--text-muted);
-      font-size: 13px;
-      opacity: 0.5;
-      padding: 4px 0;
     }
 
-    .footer a {
-      color: var(--accent);
-      text-decoration: none;
+    .site-footer p { margin: 0 0 3px; }
+
+    .site-footer .copyright {
+      color: var(--ink);
+      letter-spacing: .02em;
     }
 
-    .footer a:hover {
-      text-decoration: underline;
+    .site-footer .copyright::before {
+      content: "";
+      display: inline-block;
+      width: 5px;
+      height: 5px;
+      margin-right: 8px;
+      background: var(--red);
+      vertical-align: 1px;
     }
 
-    /* ===== 响应式 ===== */
-    @media (max-width: 700px) {
-      body {
-        flex-direction: column;
+    .site-footer .motto {
+      color: var(--red-ink);
+      font-family: var(--kai);
+      font-size: 14px;
+      letter-spacing: .06em;
+    }
+
+    .site-footer .made {
+      color: var(--muted);
+      font-size: 11.5px;
+      letter-spacing: .02em;
+    }
+
+    .heart { color: var(--red); }
+
+    .site-footer a {
+      color: var(--red-ink);
+      border-bottom: 1px dashed rgba(199, 32, 26, .45);
+    }
+
+    .site-footer a:hover { border-bottom-style: solid; }
+
+    @media (max-width: 640px) {
+      .page { padding-top: 26px; }
+      .article-meta { font-size: 9px; margin-bottom: 22px; letter-spacing: .12em; }
+
+      .ciallo { font-size: 18px; }
+      .intro { font-size: 17px; }
+
+      .meme-float {
+        float: none;
+        width: 58%;
+        margin: 24px auto;
       }
 
-      .sidebar {
-        width: 100%;
-        min-width: 100%;
-        height: auto;
-        flex-direction: row;
-        padding: 0;
-        border-right: none;
-        border-top: 1px solid var(--border);
-        order: 2;
-      }
-
-      .sidebar.collapsed {
-        width: 100%;
-        min-width: 100%;
-      }
-
-      .sidebar-toggle {
-        display: none;
-      }
-
-      .sidebar nav {
-        flex-direction: row;
-        justify-content: space-around;
-        padding: 6px 8px;
-        gap: 0;
-      }
-
-      .sidebar.collapsed nav {
-        opacity: 1;
-        visibility: visible;
-      }
-
-      .sidebar nav button,
-      .sidebar nav a {
-        flex-direction: column;
-        gap: 2px;
-        padding: 6px 8px;
-        font-size: 11px;
-        width: auto;
-      }
-
-      .sidebar nav button i,
-      .sidebar nav a i {
+      h2 {
+        margin-top: 30px;
         font-size: 18px;
       }
 
-      .sidebar .label {
-        display: inline;
-        font-size: 11px;
-      }
+      .doing li { padding-left: 36px; }
+      .doing strong { font-size: 15px; }
+      .doing span { font-size: 14px; }
 
-      .main {
-        height: auto;
-        flex: 1;
-        overflow-y: auto;
-        padding: 16px 12px 24px;
-        order: 1;
-      }
+      .links { line-height: 2; }
+      .sep { margin: 0 3px; }
 
-      .hero-inner .clock-area {
-        text-align: left;
+      .site-footer {
+        margin-top: 58px;
+        padding: 28px 18px 30px;
       }
+    }
 
-      .card {
-        padding: 20px 18px;
-      }
+    @media (max-width: 400px) {
+      .meme-float { width: 56%; }
     }
   </style>
 </head>
+<body id="top">
+  <img
+    class="banner"
+    src="assets/banner.webp"
+    srcset="assets/banner-1200.webp 1200w, assets/banner.webp 2000w"
+    sizes="100vw"
+    width="2000"
+    height="453"
+    alt="红色背景的横幅：动漫少年戴着耳机，白色毛笔字写着 hotsoup 和“做我所爱”"
+    fetchpriority="high"
+    decoding="async"
+  >
 
-<body>
+  <main class="page">
+    <h1 class="sr-only">hahahotsoup 的个人主页</h1>
 
-  <!-- 侧边栏 -->
-  <aside class="sidebar" id="sidebar">
-    <button class="sidebar-toggle" type="button" onclick="toggleSidebar()" title="收起侧边栏">
-      <i class="ri-menu-fold-line"></i>
-    </button>
-    <nav>
-      <button class="active" onclick="switchPage('home', this)" title="起始页">
-        <i class="ri-dashboard-3-line"></i><span class="label">起始页</span>
-      </button>
-      <a href="https://blog.hotsouprealm.top/friends/" target="_blank" rel="noopener" title="友链">
-        <i class="ri-links-line"></i><span class="label">友链</span>
-      </a>
-    </nav>
-  </aside>
-
-  <!-- 主内容区 -->
-  <main class="main">
-
-    <!-- ==================== 首页 ==================== -->
-    <div class="page active" id="page-home">
-      <div class="card-col">
-
-        <!-- Hero（头像 + 信息 + 时钟） -->
-        <section class="card card-accent">
-          <div class="hero-inner">
-            <img class="avatar" alt="hahahotsoup" src="https://blog.hotsouprealm.top/images/hahahotsoup.png" />
-            <div class="info">
-              <h1>hahahotsoup</h1>
-              <p class="tagline">做我所爱</p>
-              <div class="socials">
-                <a class="gh" title="GitHub" target="_blank" rel="noopener" href="https://github.com/hahahotsoup"><i
-                    class="ri-github-fill"></i></a>
-                <a class="bl" title="Bilibili" target="_blank" rel="noopener"
-                  href="https://space.bilibili.com/1714437150"><i class="ri-bilibili-fill"></i></a>
-                <a class="tw" title="Twitter" target="_blank" rel="noopener" href="https://twitter.com/hahahotsoup"><i
-                    class="ri-twitter-fill"></i></a>
-                <a class="mail" title="Email" href="mailto:hahahotsoup@foxmail.com"><i class="ri-mail-fill"></i></a>
-              </div>
-            </div>
-            <div class="clock-area">
-              <div class="clock"><span class="clock-prefix">现在是...</span><span id="clock-time">--:--</span></div>
-              <div class="date" id="date">----年--月--日</div>
-              <div class="greeting" id="greeting">下午好</div>
-            </div>
-          </div>
-        </section>
-        <section class="card card-accent">
-          <h2><i class="ri-user-smile-line"></i> 我也要说嘛</h2>
-
-          <p>可可爱爱 弱受正太（划掉</p>
-          <p>普通计算机科学爱好者</p>
-          <p>山东威海某牛逼高中学生</p>
-          <p>vibe coding造粪艺术家 使用ai的能力堪比吕布骑狗或狗骑吕布</p>
-          <p>男性 intj 要么i到极致，要么e到极致</p>
-          <p>刷到一定好感度会发电</p>
-          <p>主张投资于人理念，呼吁技术开源</p>
-
-          <hr>
-
-          <h2><i class="ri-timer-flash-line"></i> 目前在做</h2>
-          <div class="doing-entry">
-            <div class="doing-icon">#1</div>
-            <div class="doing-body">
-              <div class="doing-title">忙着高考</div>
-              <div class="doing-desc">没错成为苦逼高三生了呜呜呜</div>
-            </div>
-          </div>
-          <div class="doing-entry">
-            <div class="doing-icon">#2</div>
-            <div class="doing-body">
-              <div class="doing-title">博客：ai到底是在提出观点还是辅佐论证——关于ai的立场一致性讨论</div>
-              <div class="doing-desc">已完结</div>
-             </div>
-          </div>
-
-               <h2>立场声明&警告</h2>
-          <p>
-          <h3>#1政治立场</h3>坚决拥护并支持中国共产党的领导，这应该是每个国民内心价值观的基本框架</p>
-          <p>
-          <h3>#2个人底线</h3>跑我这来发骚没问题，但你不和我刷好感度我怎么和你解锁特殊cg呀，而且不要突破最基本的底线（例如自残，暴力等 开玩笑除外）</p>
-          <p><h3>#3 lgbt相关</h3>我不属于彩虹旗群体，不必在我所管理的群聊刷政治正确</p>
-          <p style="color:var(--text);">尊重所有成年人对自身身份与选择的决定权</p>
-          <p style="color:var(--text);">反对向未成年人输出未经风险提示的性别过渡引导</p>
-          <p style="color:var(--text);">反对任何形式的自残行为及其美化行为</p>
-          <hr>
-          <h2><i class="ri-links-line"></i> 公开的联系链接</h2>
-          <div class="link-row">
-            <a class="link-btn" target="_blank" rel="noopener" href="https://blog.hotsouprealm.top"><i
-                class="ri-home-smile-fill"></i> 云茶馆（和技术无关，纯人文）</a>
-            <a class="link-btn" target="_blank" rel="noopener" href="https://github.com/hahahotsoup"><i
-                class="ri-github-fill"></i> GitHub</a>
-            <a class="link-btn" target="_blank" rel="noopener" href="https://space.bilibili.com/1714437150"><i
-                class="ri-bilibili-fill"></i> Bilibili</a>
-            <a class="link-btn" target="_blank" rel="noopener" href="https://twitter.com/hahahotsoup"><i
-                class="ri-twitter-fill"></i> Twitter</a>
-            <a class="link-btn" href="mailto:hahahotsoup@foxmail.com"><i class="ri-mail-fill"></i> 邮件</a>
-          </div>
-        </section>
-
-        <div class="footer">Made with <i class="ri-heart-fill" style="color:var(--red);font-size:13px;"></i> by
-          hahahotsoup</div>
-
-      </div>
+    <div class="article-meta">
+      <span>个人主页</span>
+      <span>cool beans bro 👍</span>
     </div>
+
+    <p class="ciallo">Ciallo～ (∠・ω&lt; )⌒★</p>
+    <p class="intro">你好啊，我是 <strong>hahahotsoup</strong>，也可以叫我<span class="name">hotsoup</span>或者 <span class="name">汤知宁</span> </br> （如果你实在需要使用中文的话，这是我写过的一个小说里的正太的名字）</p>
+
+    <figure class="meme meme-float">
+      <img src="assets/meme-01.webp" alt="Q版杂鱼眨眼比耶，深蓝色背景上有黄色星星" width="800" height="800" decoding="async">
+    </figure>
+
+    <div class="bio">
+      <p>普通计算机科学爱好者</p>
+      <p>山东威海某牛逼高中学生</p>
+      <p>vibe coding 造粪艺术家，使用 AI 的能力堪比吕布骑狗，或狗骑吕布</p>
+      <p>男性 INTJ，要么 i 到极致，要么 e 到极致</p>
+      <p>刷到一定好感度会发电</p>
+    </div>
+
+    <h2>目前在做</h2>
+    <ol class="doing">
+      <li>
+        <strong>忙着高考</strong>
+        <span>没错，成为苦逼高三生了。呜呜呜 😭</span>
+      </li>
+      <li>
+        <strong>活着</strong>
+        <span>首先这里是山河四省</span>
+      </li>
+    </ol>
+
+    <hr>
+    <h2>意识形态</h2>
+    <p>坚定拥护中国共产党的领导</p>
+    <p>请党放心，优势在我</p>
+    <p>拥护社会主义，为共产主义而奋斗</p>
+    <p>不接受跨性别者（相关人群希望交友者慎重）</p>
+    <p>无意争辩意识形态</p>
+
+    <h2>公开的联系链接</h2>
+    <p class="links">
+      <a href="https://blog.hotsouprealm.top" target="_blank" rel="noopener noreferrer">热汤茶馆</a><span class="sep">·</span><a href="https://github.com/hahahotsoup" target="_blank" rel="noopener noreferrer">GitHub</a><span class="sep">·</span><a href="https://space.bilibili.com/1714437150" target="_blank" rel="noopener noreferrer">Bilibili</a><span class="sep">·</span><a href="https://twitter.com/hahahotsoup" target="_blank" rel="noopener noreferrer">Twitter</a><span class="sep">·</span><a href="mailto:hahahotsoup@foxmail.com">邮件</a><span class="sep">·</span><a href="https://blog.hotsouprealm.top/friends/" target="_blank" rel="noopener noreferrer">友链</a>
+    </p>
+
 
   </main>
 
-  <script>
-    function toggleSidebar() {
-      document.getElementById('sidebar').classList.toggle('collapsed');
-    }
-
-    function switchPage(name, el) {
-      document.querySelectorAll('.page').forEach(p => { p.classList.remove('active'); });
-      document.getElementById('page-' + name).classList.add('active');
-      document.querySelectorAll('.sidebar nav button').forEach(a => { a.classList.remove('active'); });
-      el.classList.add('active');
-    }
-
-    function tick() {
-      var now = new Date();
-      var h = now.getHours(), m = now.getMinutes();
-      document.getElementById('clock-time').textContent =
-        `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
-      document.getElementById('date').textContent =
-        `${now.getFullYear()}年${now.getMonth() + 1}月${now.getDate()}日 周${['日', '一', '二', '三', '四', '五', '六'][now.getDay()]}`;
-      var g = h < 9 ? 'Ciallo～ (∠・ω< )⌒★ 早安' : h < 12 ? 'Ciallo～ (∠・ω< )⌒★ 新的一天' : h < 14 ? 'Ciallo～ (∠・ω< )⌒★ 午好' : h < 18 ? 'Ciallo～ (∠・ω< )⌒★ 午安' : h < 22 ? 'Ciallo～ (∠・ω< )⌒★ 晚好' : 'Ciallo～ (∠・ω< )⌒★ 晚安，好梦';
-      document.getElementById('greeting').textContent = g;
-    }
-    tick(); setInterval(tick, 30000);
-  </script>
+  <footer class="site-footer">
+    <p class="copyright">© 2026 hahahotsoup / hotsoup</p>
+    <p class="motto">做我所爱</p>
+    <p class="made">Made with <span class="heart">♥</span> by hahahotsoup · <a href="#top">回到顶部 ↑</a></p>
+  </footer>
 </body>
-
 </html>
